@@ -1,3 +1,40 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+import joblib
+
+# ... imports ...
+
+app = FastAPI(
+    title="Iris Species Predictor",
+    description="A production-ready API for classifying Iris flowers using Logistic Regression.",
+    version="1.0.0"
+)
+
+# ... load model ...
+
+class IrisFeatures(BaseModel):
+    """
+    Input schema for the Iris prediction model.
+    Values should be in centimeters.
+    """
+    sepal_length: float
+    sepal_width: float
+    petal_length: float
+    petal_width: float
+
+@app.post("/predict", tags=["Inference"])
+def predict_species(features: IrisFeatures):
+    """
+    Predicts the species of an Iris flower based on sepal and petal measurements.
+
+    Args:
+        features (IrisFeatures): The physical measurements of the flower.
+
+    Returns:
+        dict: The predicted class ID and species name.
+    """
+    # ... your existing code ...
+    
 # main.py
 from fastapi import FastAPI
 from pydantic import BaseModel
